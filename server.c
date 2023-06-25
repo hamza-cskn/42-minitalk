@@ -1,42 +1,59 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hcoskun42 <hcoskun@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/25 12:14:12 by hcoskun42         #+#    #+#             */
+/*   Updated: 2023/06/25 12:14:13 by hcoskun42        ###   ########.tr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 #include <signal.h>
 #include "libft/libft.h"
 #include <stdio.h>
 
-static void right_shift_bit(char *c, int last_bit) {
-    if (last_bit)
-        *c = (*c >> 1) | 0b10000000;
-    else
-        *c = (*c >> 1) & 0b01111111;
+void	right_shift_bit(char *c, int last_bit)
+{
+	if (last_bit)
+		*c = (*c >> 1) | 0b10000000;
+	else
+		*c = (*c >> 1) & 0b01111111;
 }
 
-void handler(int signum, siginfo_t *info, void *context) {
-    (void) info;
-    (void) context;
-    static int bit_index = 0;
-    static char c = '\0';
+void	handler(int signum, siginfo_t *info, void *context)
+{
+	static int	bit_index;
+	static char	c;
 
-    right_shift_bit(&c, (signum - SIGUSR1));
-    if (bit_index == 7) {
-        ft_putchar_fd(c, 1);
-        bit_index = 0;
-    } else {
-        bit_index++;
-    }
+	(void) info;
+	(void) context;
+	bit_index = 0;
+	c = 0;
+	right_shift_bit(&c, (signum - SIGUSR1));
+	if (bit_index == 7)
+	{
+		ft_putchar_fd(c, 1);
+		bit_index = 0;
+	}
+	else
+		bit_index++;
 }
 
-int main() {
-    ft_putstr_fd("Server PID: ", 1);
-    ft_putnbr_fd(getpid(), 1);
-    ft_putchar_fd('\n', 1);
+int	main(void)
+{
+	struct sigaction	sa;
 
-    struct sigaction sa;
-    sa.sa_flags = SA_RESTART | SA_SIGINFO;
-    sa.sa_sigaction = handler;
-    sigemptyset(&sa.sa_mask);
-
-    sigaction(SIGUSR1, &sa, NULL);
-    sigaction(SIGUSR2, &sa, NULL);
-
-    while (1) pause();
+	ft_putstr_fd("Server PID: ", 1);
+	ft_putnbr_fd(getpid(), 1);
+	ft_putchar_fd('\n', 1);
+	sa.sa_flags = SA_RESTART | SA_SIGINFO;
+	sa.sa_sigaction = handler;
+	sigemptyset(&sa.sa_mask);
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
+	while (1)
+		pause();
 }
