@@ -25,13 +25,11 @@ void	right_shift_bit(char *c, int last_bit)
 
 void	handler(int signum, siginfo_t *info, void *context)
 {
-	static int	bit_index;
-	static char	c;
+	static int	bit_index = 0;
+	static char	c = 0;
 
 	(void) info;
 	(void) context;
-	bit_index = 0;
-	c = 0;
 	right_shift_bit(&c, (signum - SIGUSR1));
 	if (bit_index == 7)
 	{
