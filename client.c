@@ -29,7 +29,7 @@ int	main(int ac, char **av)
 	(void) ac;
 	pid = ft_atoi(av[1]);
 	byte_index = 0;
-	*str = av[2];
+	str = av[2];
 	while (str[byte_index])
 	{
 		bit_index = 0;
