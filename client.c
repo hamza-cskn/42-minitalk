@@ -6,7 +6,7 @@
 /*   By: hcoskun42 <hcoskun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 12:14:06 by hcoskun42         #+#    #+#             */
-/*   Updated: 2023/06/25 12:14:08 by hcoskun42        ###   ########.tr       */
+/*   Updated: 2023/07/07 12:41:05 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int ac, char **av)
 		{
 			bit = get_bit(str[byte_index], bit_index);
 			kill(pid, SIGUSR1 + bit);
-			usleep(100);
+			usleep(50);
 			bit_index++;
 		}
 		byte_index++;

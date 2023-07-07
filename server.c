@@ -6,7 +6,7 @@
 /*   By: hcoskun42 <hcoskun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 12:14:12 by hcoskun42         #+#    #+#             */
-/*   Updated: 2023/06/25 12:14:13 by hcoskun42        ###   ########.tr       */
+/*   Updated: 2023/07/07 12:38:30 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	handler(int signum, siginfo_t *info, void *context)
 	static int	bit_index = 0;
 	static char	c = 0;
 
-	(void) info;
 	(void) context;
+	(void) info;
 	right_shift_bit(&c, (signum - SIGUSR1));
 	if (bit_index == 7)
 	{
@@ -47,7 +47,7 @@ int	main(void)
 	ft_putstr_fd("Server PID: ", 1);
 	ft_putnbr_fd(getpid(), 1);
 	ft_putchar_fd('\n', 1);
-	sa.sa_flags = SA_RESTART | SA_SIGINFO;
+	sa.sa_flags = SA_RESTART;
 	sa.sa_sigaction = handler;
 	sigemptyset(&sa.sa_mask);
 	sigaction(SIGUSR1, &sa, NULL);
