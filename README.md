@@ -7,6 +7,6 @@ This project aims to teach bit serializing and UNIX signals.
 2. Compile programs: `make`
 3. Run the server and see PID(Process Id): `./server`
 4. Open a new shell.
-5. Run the client and write a message: `./client <message>`
+5. Run the client and write a message: `./client <server pid> <message>`
 6. You'll see the message on the server's terminal.
 7. That's all. Enjoy.
